@@ -1,0 +1,45 @@
+<h2 class="header">TODO CRUD</h2>
+<div class="container mt-5 pb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <mat-card class="mt-3">
+                <div class="form-group">
+                    <h4>{{isineditmode ? 'Add TODO' : 'Update TODO'}}</h4>
+                    <input #todoitem type="text" class="form-control">
+
+                    <button
+                    *ngIf="isineditmode"
+                    (click)="ontodoadd()"
+                    mat-raised-button color="primary" class="mt-3 btn-block">Add todo</button>
+                    <button 
+                    (click)="onUpdate()"
+                    *ngIf="!isineditmode"
+                    mat-raised-button color="primary" class="mt-3 btn-block">Update todo</button>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-6">
+            <mat-card class="mt-3">
+                <ul class="list-group" *ngIf="todoArr.length > 0 ; else tempref">
+                    <li *ngFor="let todo of todoArr; trackBy : trackbyfun"
+                        class="list-group-item d-flex justify-content-between align-items-center">
+                        <strong>{{todo.todoItem}}</strong>
+
+                        <div>
+                            <button
+                            (click)="onEdit(todo)"
+                            mat-mini-fab color="primary" class="btn-sm mr-3"><mat-icon>edit</mat-icon></button>
+                            <button 
+                            (click)="onremove(todo.id)"
+                            mat-mini-fab color="warn"
+                                class="btn btn-outline-danger btn-sm"><mat-icon>delete</mat-icon></button>
+                        </div>
+                    </li>
+                </ul>
+                <ng-template #tempref>
+                    <p class="alert alert-info">No todo item is added yet!!!</p>
+                </ng-template>
+            </mat-card>
+        </div>
+    </div>
+</div>
