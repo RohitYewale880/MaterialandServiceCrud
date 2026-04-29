@@ -1,0 +1,96 @@
+<h1 class="header">STUDENT CRUD</h1>
+<div class="container pb-4">
+    <div class="row">
+        <div class="col-md-4">
+            <mat-card>
+                <h2 class="mb-3">{{oneditmode ? 'Add Student' : 'Update Student'}}</h2>
+                <div class="form-group">
+                    <label class="text-primary">First Name<sup>*</sup></label>
+                    <input #fname type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="text-primary">Last Name<sup>*</sup></label>
+                    <input #lname type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="text-primary">Email<sup>*</sup></label>
+                    <input #email type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="text-primary">Contact<sup>*</sup></label>
+                    <input #contact type="text" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label class="text-primary">Get Confirm<sup>*</sup></label>
+                    <select #isconfirm class="form-control">yes/no
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button 
+                    (click)="onAdd()"
+                    *ngIf="oneditmode" mat-flat-button color="primary" class="btn-block">Add Student</button>
+                    <button 
+                    (click)="onUpdate()"
+                    *ngIf="!oneditmode" mat-flat-button color="primary" class="btn-block">Update
+                        Student</button>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-8">
+            <mat-card class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="text-center">
+                        <tr>
+                            <th><strong>Sr. No.</strong></th>
+                            <th><strong>Full Name</strong></th>
+                            <th><strong>Email</strong></th>
+                            <th><strong>Contact</strong></th>
+                            <th><strong>isConfirm</strong></th>
+                            <th><strong>Edit</strong></th>
+                            <th><strong>Delete</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let std of stdArr; let i = index; trackBy : trackByFun">
+                            <td>{{i + 1}}</td>
+                            <td>{{std.fname}} {{std.lname}}</td>
+                            <td>{{std.email}}</td>
+                            <td>{{std.contact}}</td>
+                            <td class="text-center">
+                                <strong class="badge text-white p-2" [ngClass]="{
+                            'bg-success' : std.isConfirmed,
+                            'bg-danger' : !std.isConfirmed
+                            }">
+                                    {{std.isConfirmed ? 'Yes' : 'No'}}
+                                </strong>
+                            </td>
+                            <td class="text-center">
+                                <!-- <button mat-raised-button color="primary" class="btn-block">Edit</button> -->
+                                <button
+                                (click)="onEdit(std)"
+                                mat-mini-fab color="primary">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                            </td>
+                            <td class="text-center">
+                                <!-- <button (click)="onRemove(std.stdId)" mat-raised-button color="warn" class="btn-block">Remove</button> -->
+                                <button
+                                (click)="onRemove(std.id)"
+                                mat-mini-fab color="warn">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </mat-card>
+        </div>
+    </div>
+</div>
